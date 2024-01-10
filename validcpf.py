@@ -35,17 +35,19 @@ def validar_cpf_rota():
 
 
 @app.route('/validar_cpf', methods=['GET'])
-# Obtém o parametro 'cpf' da requisição GET. Se não estiver presente, usa uma string vazia.
 def validar_cpf_rota():
-    cpf_param = request.args.get('cpf', '')
+    # Obtém todos os parâmetros da consulta como um dicionário
+    params = request.args.to_dict()
 
-    if valida_cpf(cpf_param):
+    # Obtém o valor do parâmetro 'cpf' do dicionário
+    cpf_param = params.get('cpf', '')
+
+    if validar_cpf(cpf_param):
         resultado = {'valido': True, 'mensagem': 'CPF válido'}
     else:
         resultado = {'valido': False, 'mensagem': 'CPF inválido'}
 
     return jsonify(resultado)
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
