@@ -46,8 +46,3 @@ def validar_cpf_rota():
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=8000)
-
