@@ -1,36 +1,31 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import inspect
+
 
 
 app = Flask(__name__)
 CORS(app)
 
 
-from flask import request, jsonify
-import inspect
+#Funçao para verificar os cpf
+def valida_cpf(cpf):
+    # Remove caracteres não numericos do CPF
+    cpf = ''.join(filter(str.isdigit, cpf))
 
-def validar_cpf_rota():
-    cpf_param = request.args.get('cpf', '')
+    # Verifica se o CPF possui 11 digitos
+    if len(cpf) != 11:
+        return False
 
-    # Obtém a assinatura da função valida_cpf
-    signature = inspect.signature(valida_cpf)
+    # Calcula o primeiro digito verificador
+    soma = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    digito1 = 11 - (soma % 11) if soma % 11 >= 2 else 0
 
-    # Obtém os parâmetros da função valida_cpf
-    parameters = signature.parameters
+    # Calcula o segundo digito verificador
+    soma = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    digito2 = 11 - (soma % 11) if soma % 11 >= 2 else 0
 
-    # Verifica se o parâmetro 'cpf' está presente na assinatura
-    if 'cpf' in parameters:
-        # Chama a função valida_cpf com o parâmetro 'cpf'
-        if valida_cpf(cpf_param):
-            resultado = {'valido': True, 'mensagem': 'CPF válido'}
-        else:
-            resultado = {'valido': False, 'mensagem': 'CPF inválido'}
-    else:
-        # Caso o parâmetro 'cpf' não esteja presente na assinatura
-        resultado = {'valido': False, 'mensagem': 'Parâmetro CPF ausente'}
-
-    return jsonify(resultado)
+    # Verifica se os digitos verificadores estão corretos
+    return int(cpf[9]) == digito1 and int(cpf[10]) == digito2
 
 
 
@@ -42,7 +37,7 @@ def validar_cpf_rota():
     # Obtém o valor do parâmetro 'cpf' do dicionário
     cpf_param = params.get('cpf', '')
 
-    if validar_cpf(cpf_param):
+    if valida_cpf(cpf_param):
         resultado = {'valido': True, 'mensagem': 'CPF válido'}
     else:
         resultado = {'valido': False, 'mensagem': 'CPF inválido'}
@@ -51,6 +46,7 @@ def validar_cpf_rota():
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
