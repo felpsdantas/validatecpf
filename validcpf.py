@@ -1,6 +1,7 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
+os.environ.get('KEY')
 
 app = Flask(__name__)
 CORS(app)
