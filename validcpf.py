@@ -2,16 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from dotenv import load_dotenv
-import os
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
-
-# Agora você pode acessar as variáveis de ambiente usando a função `os.getenv`
-api_key = os.getenv("9557fa006e2c76b7fbd739af9f163698")
-# Substitua "SUA_CHAVE_API" pelo nome real da variável de ambiente no seu arquivo .env
-
-# Use a variável api_key conforme necessário no seu código
 
 
 app = Flask(__name__)
