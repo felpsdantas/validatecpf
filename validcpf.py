@@ -27,6 +27,9 @@ def valida_cpf(cpf):
     # Verifica se os digitos verificadores estão corretos
     return int(cpf[9]) == digito1 and int(cpf[10]) == digito2
 
+@app.route('/')
+def pagina_inicial():
+    return 'Bem-vindo à minha página inicial!'
 
 
 @app.route('/validar_cpf', methods=['GET'])
