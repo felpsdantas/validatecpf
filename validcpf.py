@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-
 
 
 app = Flask(__name__)
@@ -27,6 +26,10 @@ def valida_cpf(cpf):
     # Verifica se os digitos verificadores estão corretos
     return int(cpf[9]) == digito1 and int(cpf[10]) == digito2
 
+@app.route('/static/<path:path>')
+def serve_static(path):
+    return send_from_directory('static', path)
+
 @app.route('/')
 def pagina_inicial():
     return 'Bem-vindo à minha página inicial!'
@@ -46,11 +49,9 @@ def validar_cpf_rota():
         resultado = {'valido': False, 'mensagem': 'CPF inválido'}
 
     return jsonify(resultado)
-    
-@app.route('/teste')
-def testando():
-    return "testando"
-    
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
 
