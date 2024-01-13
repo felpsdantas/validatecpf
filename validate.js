@@ -6,9 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCPF() {
         const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
 
-        fetch(`http://localhost:8000/validar_cpf?cpf=${cpf}`)
-
-            .then(response => response.json())
+        fetch(`/validar_cpf?cpf=${cpf}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.valido) {
                     resultDiv.innerHTML = `<p style="color: green;">${data.mensagem}</p>`;
@@ -23,4 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     validateButton.addEventListener('click', validateCPF);
+
+
 });
