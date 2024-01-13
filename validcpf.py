@@ -46,7 +46,11 @@ def validar_cpf_rota():
         resultado = {'valido': False, 'mensagem': 'CPF inválido'}
 
     return jsonify(resultado)
-
+    
+@app.route('/teste')
+def testando():
+    return "testando"
+    
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
 
