@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validateCPF() {
         const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
-
-        fetch(`/validar_cpf?cpf=${cpf}`)
+        
+        fetch(`http://localhost:8000/validar_cpf?cpf=${cpf}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -28,5 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     validateButton.addEventListener('click', validateCPF);
 
-
 });
+
+
