@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCPF() {
         const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
 
-        fetch(`http://localhost:8000/validar_cpf?cpf=${cpf}`)
+        fetch(`https://testvalidate.onrender.com/validar_cpf?cpf=${cpf}`)
 
             .then(response => response.json())
             .then(data => {
