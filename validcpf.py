@@ -1,18 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-
-
-app = Flask(__name__)
-CORS(app)
-
-
-#Funçao para verificar os cpf
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-
+from flask_cors import cross_origin
 
 app = Flask(__name__)
-CORS(app)
 
 
 #Funçao para verificar os cpf
@@ -42,6 +31,7 @@ def pagina_inicial():
 
 
 @app.route('/validar_cpf', methods=['GET'])
+@cross_origin(supports_credentials=True)
 def validar_cpf_rota():
     # Obtém todos os parâmetros (GET ou POST) como um dicionário
     params = request.values.to_dict()
@@ -59,6 +49,6 @@ def validar_cpf_rota():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=8000)
 
 
