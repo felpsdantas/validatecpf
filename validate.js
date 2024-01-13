@@ -6,28 +6,37 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCPF() {
         const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
         
-        fetch(`http://localhost:8000/validar_cpf?cpf=${cpf}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.valido) {
-                    resultDiv.innerHTML = `<p style="color: green;">${data.mensagem}</p>`;
-                } else {
-                    resultDiv.innerHTML = `<p style="color: red;">${data.mensagem}</p>`;
-                }
-            })
-            .catch(error => {
-                console.error('Erro na requisição:', error);
-                resultDiv.innerHTML = '<p style="color: red;">Erro na validação do CPF. Tente novamente.</p>';
-            });
+        // Criar um objeto com os dados a serem enviados
+        const dados = { cpf };
+
+        fetch('http://localhost:8000/inserir_dados', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dados),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.valido) {
+                resultDiv.innerHTML = `<p style="color: green;">${data.mensagem}</p>`;
+            } else {
+                resultDiv.innerHTML = `<p style="color: red;">${data.mensagem}</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Erro na requisição:', error);
+            resultDiv.innerHTML = '<p style="color: red;">Erro na validação do CPF. Tente novamente.</p>';
+        });
     }
 
     validateButton.addEventListener('click', validateCPF);
-
 });
+
 
 
