@@ -62,40 +62,6 @@ def validar_cpf_rota():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
-
-
-
-
-
-@app.route('/static/<path:path>')
-def serve_static(path):
-    return send_from_directory('static', path)
-
-@app.route('/')
-def pagina_inicial():
-    return 'Bem-vindo à minha página inicial!'
-
-
-@app.route('/validar_cpf', methods=['GET'])
-def validar_cpf_rota():
-    # Obtém todos os parâmetros (GET ou POST) como um dicionário
-    params = request.values.to_dict()
-
-    # Obtém o valor do parâmetro 'cpf' do dicionário
-    cpf_param = params.get('cpf', '')
-
-    if valida_cpf(cpf_param):
-        resultado = {'valido': True, 'mensagem': 'CPF válido'}
-    else:
-        resultado = {'valido': False, 'mensagem': 'CPF inválido'}
-
-    return jsonify(resultado)
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=8000)
-
+    app.run(debug=True, port=8080)
 
 
