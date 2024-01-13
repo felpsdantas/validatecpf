@@ -35,9 +35,6 @@ def valida_cpf(cpf):
     # Verifica se os digitos verificadores estão corretos
     return int(cpf[9]) == digito1 and int(cpf[10]) == digito2
 
-@app.route('/static/<path:path>')
-def serve_static(path):
-    return send_from_directory('static', path)
 
 @app.route('/')
 def pagina_inicial():
