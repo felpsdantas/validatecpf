@@ -31,7 +31,7 @@ def pagina_inicial():
 
 
 @app.route('/validar_cpf', methods=['GET'])
-@cross_origin(supports_credentials=True)
+@cross_origin(supports_credentials=True, origins='*')
 def validar_cpf_rota():
     # Obtém todos os parâmetros (GET ou POST) como um dicionário
     params = request.values.to_dict()
