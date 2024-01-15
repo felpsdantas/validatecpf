@@ -40,23 +40,5 @@ def validar_cpf_rota(cpf):
     return jsonify(resultado)
 
 
-@app.route('/validar_cpf', methods=['GET'])
-@cross_origin(supports_credentials=True, origins='*')
-def validar_cpf_rota():
-    # Obtém todos os parâmetros (GET ou POST) como um dicionário
-    params = request.values.to_dict()
-
-    # Obtém o valor do parâmetro 'cpf' do dicionário
-    cpf_param = params.get('cpf', '')
-
-    if valida_cpf(cpf_param):
-        resultado = {'valido': True, 'mensagem': 'CPF válido'}
-    else:
-        resultado = {'valido': False, 'mensagem': 'CPF inválido'}
-
-    return jsonify(resultado)
-
-
-
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=8000)
