@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify
 from flask_cors import cross_origin
 
 app = Flask(__name__)
@@ -26,8 +26,8 @@ def valida_cpf(cpf):
 
 
 @app.route('/')
-def pagina_inicial():
-    return 'Bem-vindo à minha página inicial!'
+def index():
+    return render_template('index.html')
 
 
 @app.route('/validar_cpf', methods=['GET'])
