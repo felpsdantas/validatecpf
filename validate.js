@@ -5,14 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validateCPF() {
         const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
-        
-        // Criar um objeto com os dados a serem enviados
-        const dados = { cpf };
-
-        fetch(`http://localhost:8000/validar_cpf?cpf=${cpf}`)
+        fetch(`http://localhost:8000/api/validar_cpf/${cpf}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
                 }
                 return response.json();
             })
