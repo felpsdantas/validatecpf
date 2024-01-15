@@ -29,21 +29,6 @@ def valida_cpf(cpf):
 def pagina_inicial():
     return 'Bem-vindo à minha página inicial!'
 
-@app.route('/inserir_dados', methods=['POST'])
-@cross_origin(supports_credentials=True, origins='*')
-def inserir_dados():
-    dados = request.json
-
-    if 'cpf' in dados:
-        cpf_param = dados['cpf']
-        if valida_cpf(cpf_param):
-            resultado = {'valido': True, 'mensagem': 'CPF válido'}
-        else:
-            resultado = {'valido': False, 'mensagem': 'CPF inválido'}
-        return jsonify(resultado)
-    else:
-        return jsonify({'valido': False, 'mensagem': 'CPF não fornecido nos dados'})
-
 
 @app.route('/validar_cpf', methods=['GET'])
 @cross_origin(supports_credentials=True, origins='*')
