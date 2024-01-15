@@ -29,6 +29,16 @@ def valida_cpf(cpf):
 def index():
     return render_template('index.html')
 
+@app.route('/api/validar_cpf/<cpf>', methods=['GET'])
+@cross_origin(supports_credentials=True, origins='*')
+def validar_cpf_rota(cpf):
+    if valida_cpf(cpf):
+        resultado = {'valido': True, 'mensagem': 'CPF válido'}
+    else:
+        resultado = {'valido': False, 'mensagem': 'CPF inválido'}
+
+    return jsonify(resultado)
+
 
 @app.route('/validar_cpf', methods=['GET'])
 @cross_origin(supports_credentials=True, origins='*')
