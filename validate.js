@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validateCPF() {
         const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
-        fetch(`/api/validar_cpf/${cpf}`)
+        fetch(`http://127.0.0.1:5000/api/validar_cpf/${cpf}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Erro HTTP! Status: ${response.status}`);
