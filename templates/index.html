@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='body.css') }}">
+    <title>Validação de CPF</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Validação de CPF</h1>
+        <label for="cpfInput">Digite o CPF:</label>
+        <input type="text" id="cpfInput" placeholder="123.456.789-09">
+        <!-- Adicionei o ID "validateButton" ao botão -->
+        <button id="validateButton">Verificar</button>
+        <div id="result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='validate.js') }}"></script>
+</body>
+</html>
