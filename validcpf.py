@@ -1,8 +1,9 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_from_directory
 from flask_cors import cross_origin
 
 app = Flask(__name__)
 
+app.static_url_path = '/static'
 
 #Funçao para verificar os cpf
 def valida_cpf(cpf):
@@ -25,10 +26,14 @@ def valida_cpf(cpf):
     return cpf[9:] == str(digito1 % 10) + str(digito2 % 10)
 
 
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, cache_timeout=0)
 
 @app.route('/api/validar_cpf/<cpf>', methods=['GET'])
 @cross_origin(supports_credentials=True, origins='*')
