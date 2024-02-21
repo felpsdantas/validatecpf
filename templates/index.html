@@ -9,12 +9,40 @@
 <body>
     <div class="container">
         <h1>Validação de CPF</h1>
-        <label for="cpfInput">Digite o CPF:</label>
-        <input type="text" id="cpfInput" placeholder="123.456.789-09">
-        <!-- Adicionei o ID "validateButton" ao botão -->
-        <button id="validateButton">Verificar</button>
+        <form id="cpfForm">
+            <label for="cpfInput">Digite o CPF:</label>
+            <input type="text" id="cpfInput" name="cpf" placeholder="123.456.789-09">
+            <!-- Adicionei o ID "validateButton" ao botão -->
+            <button type="button" onclick="validateCPF()">Verificar</button>
+        </form>
         <div id="result"></div>
     </div>
-    <script src="{{ static_url }}validate.js"></script>
+    <script>
+        function validateCPF() {
+            const cpfInput = document.getElementById('cpfInput');
+            const resultDiv = document.getElementById('result');
+
+            const cpf = cpfInput.value.replace(/\D/g, ''); // Remover caracteres não numéricos
+            fetch(`http://127.0.0.1:5000/api/validar_cpf`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `cpf=${cpf}`,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.valido) {
+                    resultDiv.innerHTML = `<p style="color: green;">${data.mensagem}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">${data.mensagem}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                resultDiv.innerHTML = '<p style="color: red;">Erro na validação do CPF. Tente novamente.</p>';
+            });
+        }
+    </script>
 </body>
 </html>
