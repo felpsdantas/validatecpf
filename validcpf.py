@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, url_for
+from flask import Flask, render_template, jsonify, request, url_for
 from flask_cors import cross_origin
 
 app = Flask(__name__)
@@ -30,16 +30,17 @@ def valida_cpf(cpf):
 def index():
     return render_template('index.html', static_url=url_for('static', filename=''))
 
-@app.route('/api/validar_cpf/<cpf>', methods=['GET'])
+@app.route('/api/validar_cpf', methods=['POST'])
 @cross_origin(supports_credentials=True, origins='*')
-def validar_cpf_rota(cpf):
+def validar_cpf_rota():
+    cpf = request.form.get('cpf', '')
+    
     if valida_cpf(cpf):
         resultado = {'valido': True, 'mensagem': 'CPF válido'}
     else:
         resultado = {'valido': False, 'mensagem': 'CPF inválido'}
 
     return jsonify(resultado)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
